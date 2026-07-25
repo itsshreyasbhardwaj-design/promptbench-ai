@@ -1,0 +1,303 @@
+@import 'tailwindcss';
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PromptBench AI — design tokens
+
+   Direction: instrumentation. A benchmark is a measuring device, so the
+   interface borrows from lab equipment rather than from consumer AI products:
+   a cool graphite ground, a warm copper signal accent, and the absolute rule
+   that every quantity is set in tabular monospace so figures align down a
+   column and can actually be compared by eye.
+
+   The ground is a blue-leaning graphite rather than pure black. True #000
+   collapses elevation on OLED — every surface reads as the same plane — and
+   the whole layout depends on distinguishing raised panels from the canvas.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Type ──────────────────────────────────────────────────────────────── */
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ── Ground and surfaces (dark, the default) ───────────────────────────── */
+  --color-canvas: oklch(0.165 0.012 265);
+  --color-surface: oklch(0.205 0.014 265);
+  --color-surface-raised: oklch(0.238 0.015 265);
+  --color-surface-overlay: oklch(0.262 0.016 265);
+
+  /* ── Ink ───────────────────────────────────────────────────────────────── */
+  --color-ink: oklch(0.968 0.004 265);
+  --color-ink-muted: oklch(0.735 0.014 265);
+  --color-ink-subtle: oklch(0.582 0.016 265);
+  --color-ink-faint: oklch(0.448 0.016 265);
+
+  /* ── Lines ─────────────────────────────────────────────────────────────── */
+  --color-line: oklch(0.302 0.016 265);
+  --color-line-strong: oklch(0.372 0.018 265);
+
+  /* ── Signal: warm copper against the cool ground ───────────────────────── */
+  --color-signal: oklch(0.755 0.152 62);
+  --color-signal-hot: oklch(0.812 0.158 66);
+  --color-signal-dim: oklch(0.545 0.108 60);
+  --color-signal-ink: oklch(0.192 0.028 62);
+
+  /* ── Status ────────────────────────────────────────────────────────────── */
+  --color-good: oklch(0.775 0.152 158);
+  --color-warn: oklch(0.812 0.158 82);
+  --color-bad: oklch(0.688 0.192 22);
+  --color-info: oklch(0.735 0.128 232);
+
+  /* ── Model series ramp ─────────────────────────────────────────────────────
+     Eight hues chosen for even perceptual spacing and for remaining
+     distinguishable under the two most common colour-vision deficiencies —
+     charts here routinely plot six models at once, so this ramp is doing real
+     work and is not a decorative palette. */
+  --color-series-1: oklch(0.755 0.152 62);
+  --color-series-2: oklch(0.722 0.138 232);
+  --color-series-3: oklch(0.762 0.148 158);
+  --color-series-4: oklch(0.702 0.172 328);
+  --color-series-5: oklch(0.802 0.142 92);
+  --color-series-6: oklch(0.688 0.152 282);
+  --color-series-7: oklch(0.735 0.145 192);
+  --color-series-8: oklch(0.712 0.168 18);
+
+  /* ── Radii ─────────────────────────────────────────────────────────────── */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+
+  /* ── Motion ────────────────────────────────────────────────────────────────
+     One easing curve for everything. Interfaces feel incoherent when different
+     components decelerate differently. */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+/* ── Light theme ─────────────────────────────────────────────────────────────
+   Dark is the primary direction, but a benchmarking report gets printed and
+   projected, and neither works on a dark ground. Light is a real theme, not an
+   inverted afterthought: the copper darkens to hold contrast on white. */
+:root[data-theme='light'] {
+  --color-canvas: oklch(0.988 0.002 265);
+  --color-surface: oklch(1 0 0);
+  --color-surface-raised: oklch(0.978 0.003 265);
+  --color-surface-overlay: oklch(1 0 0);
+
+  --color-ink: oklch(0.198 0.014 265);
+  --color-ink-muted: oklch(0.428 0.014 265);
+  --color-ink-subtle: oklch(0.552 0.014 265);
+  --color-ink-faint: oklch(0.675 0.012 265);
+
+  --color-line: oklch(0.912 0.006 265);
+  --color-line-strong: oklch(0.845 0.008 265);
+
+  --color-signal: oklch(0.578 0.148 52);
+  --color-signal-hot: oklch(0.512 0.152 48);
+  --color-signal-dim: oklch(0.742 0.098 58);
+  --color-signal-ink: oklch(0.998 0.002 62);
+
+  --color-good: oklch(0.545 0.145 158);
+  --color-warn: oklch(0.618 0.145 78);
+  --color-bad: oklch(0.552 0.208 25);
+  --color-info: oklch(0.545 0.145 245);
+
+  --color-series-1: oklch(0.578 0.148 52);
+  --color-series-2: oklch(0.545 0.145 245);
+  --color-series-3: oklch(0.532 0.135 158);
+  --color-series-4: oklch(0.552 0.175 328);
+  --color-series-5: oklch(0.618 0.145 82);
+  --color-series-6: oklch(0.518 0.165 282);
+  --color-series-7: oklch(0.542 0.128 195);
+  --color-series-8: oklch(0.558 0.178 22);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    /* The app owns its own scroll containers; a page-level smooth scroll
+       fights with them. */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Every number in the product is tabular monospace. This is the core
+     typographic rule of the design: benchmark figures are meaningless unless
+     they align down a column. */
+  .tabular,
+  [data-numeric] {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'zero' 1;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklch, var(--color-signal) 30%, transparent);
+    color: var(--color-ink);
+  }
+
+  /* A single visible focus treatment, applied everywhere, so keyboard
+     navigation never lands somewhere invisible. */
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-faint);
+    background-clip: content-box;
+    border: 3px solid transparent;
+  }
+}
+
+@layer components {
+  /* Glass is reserved for surfaces that genuinely float over scrolling
+     content — the top bar and modal overlays. Applying it to every card is
+     what makes glassmorphism read as a filter rather than a material. */
+  .glass {
+    background-color: color-mix(in oklch, var(--color-surface) 72%, transparent);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-color: color-mix(in oklch, var(--color-line) 80%, transparent);
+  }
+
+  /* Hairline top highlight — how a physical raised panel catches light. */
+  .panel {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    position: relative;
+  }
+  .panel::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklch, var(--color-ink) 10%, transparent),
+      transparent
+    );
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    pointer-events: none;
+  }
+
+  /* Grid backdrop for hero surfaces — graph paper, the substrate every
+     measurement is plotted on. */
+  .graph-paper {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in oklch, var(--color-line) 55%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklch, var(--color-line) 55%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 32px 32px;
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-subtle);
+  }
+}
+
+@layer utilities {
+  .animate-in-up {
+    animation: in-up 0.5s var(--ease-out-quint) both;
+  }
+  .animate-shimmer {
+    animation: shimmer 1.6s linear infinite;
+  }
+  .animate-pulse-signal {
+    animation: pulse-signal 2s var(--ease-out-quint) infinite;
+  }
+}
+
+@keyframes in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-signal {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* Users who ask for reduced motion get a still interface, not a slightly
+   slower one. Streaming and layout remain fully functional without it. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
