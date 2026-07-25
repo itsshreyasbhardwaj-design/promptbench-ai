@@ -18,13 +18,40 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
-      include: ['src/lib/**/*.ts', 'src/features/**/*.ts'],
-      exclude: ['**/*.test.ts', 'src/lib/db/schema.ts'],
+
+      // Scoped to the logic unit tests can actually reach. Everything excluded
+      // below is either covered elsewhere or cannot run in this environment,
+      // and gating on it would make the number meaningless rather than strict.
+      include: ['src/lib/**/*.ts'],
+      exclude: [
+        '**/*.test.ts',
+
+        // Declarative table definitions — no behaviour to exercise.
+        'src/lib/db/schema.ts',
+
+        // Needs a live Postgres instance. Its behaviour is pinned by the shared
+        // repository conformance suite, which both drivers are held to.
+        'src/lib/db/postgres.ts',
+
+        // Needs a live OpenRouter credential. Its pure parts (SSE framing,
+        // usage normalisation) are tested directly; the transport is not.
+        'src/lib/providers/openrouter.ts',
+
+        // Browser-only hook, covered by the Playwright suite.
+        'src/lib/utils/use-persisted-flag.ts',
+
+        // Demo fixtures, exercised end to end by the E2E suite.
+        'src/lib/demo/**',
+      ],
+
+      // Set just below the current figures so a real regression fails the
+      // build, without the gate becoming a treadmill that invites contrived
+      // tests written to move a number rather than to catch a defect.
       thresholds: {
-        lines: 70,
-        functions: 70,
-        branches: 70,
-        statements: 70,
+        lines: 85,
+        functions: 82,
+        branches: 72,
+        statements: 84,
       },
     },
   },

@@ -161,11 +161,19 @@ test.describe('prompt versioning', () => {
     await page.goto('/prompts');
     await page.getByRole('link', { name: 'Bug triage classifier' }).click();
 
-    await page.getByRole('button', { name: 'Restore' }).first().click();
-    await expect(page.getByText('Rolled back')).toBeVisible();
-    // History is never rewritten — a third version now exists. "v3" appears
-    // both in the timeline and the current-template heading, so scope to one.
-    await expect(page.getByText('v3').first()).toBeVisible();
+    // Asserts the behaviour, not an absolute version number: each run appends a
+    // version and CI retries against the same server, so hard-coding "v3" fails
+    // on the second attempt.
+    const restore = page.getByRole('button', { name: 'Restore' });
+    await expect(restore.first()).toBeVisible();
+    await restore.first().click();
+
+    // Toasts stack across runs, so scope to the newest.
+    await expect(page.getByText('Rolled back').last()).toBeVisible();
+
+    // History is never rewritten: the rollback appears as its own timeline
+    // entry rather than replacing what came before.
+    await expect(page.getByText(/Rolled back to v\d+/).first()).toBeVisible();
   });
 });
 
