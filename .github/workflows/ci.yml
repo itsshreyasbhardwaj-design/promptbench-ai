@@ -26,9 +26,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Version comes from `packageManager` in package.json — passing it here
+      # too makes the action error on a duplicate specification.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - uses: actions/setup-node@v4
         with:
@@ -54,9 +54,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Version comes from `packageManager` in package.json — passing it here
+      # too makes the action error on a duplicate specification.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - uses: actions/setup-node@v4
         with:
@@ -84,9 +84,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Version comes from `packageManager` in package.json — passing it here
+      # too makes the action error on a duplicate specification.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - uses: actions/setup-node@v4
         with:
@@ -132,9 +132,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Version comes from `packageManager` in package.json — passing it here
+      # too makes the action error on a duplicate specification.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - uses: actions/setup-node@v4
         with:
