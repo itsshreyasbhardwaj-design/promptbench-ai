@@ -1,0 +1,60 @@
+name: Feature request
+description: Suggest a capability or improvement.
+title: "feat: "
+labels: [enhancement, triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The most useful requests describe a **problem you actually hit**, not
+        just a solution. Concrete workflows beat abstract capabilities.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: What were you doing, and where did the product get in your way?
+      placeholder: |
+        I run the same 40-case dataset weekly and want to know when a prompt
+        change makes things worse, but I have to eyeball two runs side by side.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like it to do?
+      description: Describe the behaviour, not the implementation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What have you tried instead?
+      description: Workarounds, other tools, or why the existing features fall short.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Playground and comparison
+        - Evaluation and rubrics
+        - Prompt library and versioning
+        - Datasets and batch runs
+        - Analytics and leaderboard
+        - Reports and export
+        - API
+        - Team, workspaces, permissions
+        - Providers and model catalog
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I am willing to open a PR for this.

@@ -1,0 +1,83 @@
+name: Bug report
+description: Something does not work as documented.
+title: "bug: "
+labels: [bug, triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. The two fields that resolve most issues fastest
+        are the **runtime mode** and the **exact reproduction steps** — please
+        do not skip them.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you observed, and what you expected instead.
+      placeholder: |
+        Expected: the comparison streams responses from all three models.
+        Actual: two panes stream, the third shows "Request failed".
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps, starting from a fresh clone or a specific page.
+      placeholder: |
+        1. Open /playground
+        2. Enter the prompt "..."
+        3. Select models X, Y, Z
+        4. Click Run comparison
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Runtime mode
+      description: "Visible at /api/v1/health under `mode`."
+      options:
+        - local (simulated models, in-memory storage)
+        - hybrid (live models, in-memory storage)
+        - full (live models, Postgres, Clerk)
+        - not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: health
+    attributes:
+      label: Health output
+      description: "Paste the response from `curl localhost:3000/api/v1/health`."
+      render: json
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Errors
+      description: Relevant console or server output. Redact any credentials.
+      render: shell
+
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: "v0.1.0, or the commit SHA"
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "macOS 15, Node 22.4, pnpm 11, Chrome 140"
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues for a duplicate.
+          required: true
+        - label: I can reproduce this on the latest `main`.
