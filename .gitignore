@@ -31,3 +31,11 @@ yarn-error.log*
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Security hardening: secret-shaped files, none currently present
+*.key
+credentials*.json
+service-account*.json
+*.log
+*.sqlite
+*.db
