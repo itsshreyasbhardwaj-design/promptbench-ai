@@ -28,6 +28,7 @@ updates:
         update-types: [version-update:semver-major]
 
   - package-ecosystem: github-actions
+    open-pull-requests-limit: 0
     directory: /
     schedule:
       interval: monthly
